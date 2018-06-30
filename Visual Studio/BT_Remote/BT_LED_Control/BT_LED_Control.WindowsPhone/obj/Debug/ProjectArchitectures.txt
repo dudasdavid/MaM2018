@@ -1,0 +1,1 @@
+C:\GIT\MaM2018\Visual Studio\BT_Remote\BT_LED_Control\BT_LED_Control.WindowsPhone\BT_Remote.WindowsPhone.csproj;neutral

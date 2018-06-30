@@ -54,23 +54,60 @@
 /* Includes ------------------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
-
+#include <stdint.h>
+#include "stm32f411e_discovery.h"
+#include "stm32f411e_discovery_accelerometer.h"
+#include "stm32f411e_discovery_gyroscope.h"
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
 
 #define CS_I2C_SPI_Pin GPIO_PIN_3
 #define CS_I2C_SPI_GPIO_Port GPIOE
+#define LED_B_Pin GPIO_PIN_5
+#define LED_B_GPIO_Port GPIOE
 #define PH0_OSC_IN_Pin GPIO_PIN_0
 #define PH0_OSC_IN_GPIO_Port GPIOH
 #define PH1_OSC_OUT_Pin GPIO_PIN_1
 #define PH1_OSC_OUT_GPIO_Port GPIOH
+#define LEFT2_EXTI1_Pin GPIO_PIN_1
+#define LEFT2_EXTI1_GPIO_Port GPIOC
+#define LEFT2_EXTI1_EXTI_IRQn EXTI1_IRQn
+#define LEFT3_EXTI2_Pin GPIO_PIN_2
+#define LEFT3_EXTI2_GPIO_Port GPIOC
+#define LEFT3_EXTI2_EXTI_IRQn EXTI2_IRQn
+#define RIGHT1_EXTI3_Pin GPIO_PIN_3
+#define RIGHT1_EXTI3_GPIO_Port GPIOC
+#define RIGHT1_EXTI3_EXTI_IRQn EXTI3_IRQn
+#define RIGHT_PWM2_Pin GPIO_PIN_0
+#define RIGHT_PWM2_GPIO_Port GPIOA
+#define RIGHT_PWM3_Pin GPIO_PIN_1
+#define RIGHT_PWM3_GPIO_Port GPIOA
 #define SPI1_SCK_Pin GPIO_PIN_5
 #define SPI1_SCK_GPIO_Port GPIOA
 #define SPI1_MISO_Pin GPIO_PIN_6
 #define SPI1_MISO_GPIO_Port GPIOA
 #define SPI1_MOSI_Pin GPIO_PIN_7
 #define SPI1_MOSI_GPIO_Port GPIOA
+#define RIGHT2_EXTI4_Pin GPIO_PIN_4
+#define RIGHT2_EXTI4_GPIO_Port GPIOC
+#define RIGHT2_EXTI4_EXTI_IRQn EXTI4_IRQn
+#define RIGHT3_EXTI5_Pin GPIO_PIN_5
+#define RIGHT3_EXTI5_GPIO_Port GPIOC
+#define RIGHT3_EXTI5_EXTI_IRQn EXTI9_5_IRQn
+#define SERVO3_Pin GPIO_PIN_0
+#define SERVO3_GPIO_Port GPIOB
+#define SERVO4_Pin GPIO_PIN_1
+#define SERVO4_GPIO_Port GPIOB
+#define LEFT_PWM1_Pin GPIO_PIN_9
+#define LEFT_PWM1_GPIO_Port GPIOE
+#define LEFT_PWM2_Pin GPIO_PIN_11
+#define LEFT_PWM2_GPIO_Port GPIOE
+#define LEFT_PWM3_Pin GPIO_PIN_13
+#define LEFT_PWM3_GPIO_Port GPIOE
+#define RIGHT_PWM1_Pin GPIO_PIN_14
+#define RIGHT_PWM1_GPIO_Port GPIOE
 #define LD4_Pin GPIO_PIN_12
 #define LD4_GPIO_Port GPIOD
 #define LD3_Pin GPIO_PIN_13
@@ -83,10 +120,26 @@
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin GPIO_PIN_14
 #define SWCLK_GPIO_Port GPIOA
+#define LEFT_FW_Pin GPIO_PIN_0
+#define LEFT_FW_GPIO_Port GPIOD
+#define LEFT_RW_Pin GPIO_PIN_1
+#define LEFT_RW_GPIO_Port GPIOD
+#define RIGHT_FW_Pin GPIO_PIN_2
+#define RIGHT_FW_GPIO_Port GPIOD
+#define RIGHT_RW_Pin GPIO_PIN_3
+#define RIGHT_RW_GPIO_Port GPIOD
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define SERVO1_Pin GPIO_PIN_4
+#define SERVO1_GPIO_Port GPIOB
+#define SERVO2_Pin GPIO_PIN_5
+#define SERVO2_GPIO_Port GPIOB
 #define Audio_SCL_Pin GPIO_PIN_6
 #define Audio_SCL_GPIO_Port GPIOB
+#define LED_R_Pin GPIO_PIN_7
+#define LED_R_GPIO_Port GPIOB
+#define LED_G_Pin GPIO_PIN_8
+#define LED_G_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -96,7 +149,15 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
+#define ABS(x)         (x < 0) ? (-x) : x
+#define PI     3.14159
 
+#define COMPASS_X_MAX 702
+#define COMPASS_X_MIN -358
+#define COMPASS_Y_MAX 293
+#define COMPASS_Y_MIN -829
+#define COMPASS_Z_MAX 845
+#define COMPASS_Z_MIN -282
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
